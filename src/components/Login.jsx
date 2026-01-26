@@ -8,6 +8,7 @@ import { BASE_URL } from "../utils/constants";
 const Login = () => {
   const [emailId, setEmailId] = React.useState("saurab@gmail.com");
   const [password, setPassword] = React.useState("Saurab@123");
+  const [error, setError] = React.useState("");
   const navigete = useNavigate();
 
   const dispatch = useDispatch();
@@ -19,10 +20,12 @@ const Login = () => {
         { emailId, password },
         { withCredentials: true },
       );
+      console.log(response.data);
       dispatch(addUser(response.data.data));
       return navigete("/feed");
     } catch (err) {
       console.log(err);
+      setError(err.response.data || "Something went wrong");
     }
   };
   return (
@@ -32,27 +35,29 @@ const Login = () => {
         <div className="card-body">
           <h2 className="card-title">Login!</h2>
 
-          <fieldset className="fieldset">
-            <legend className="fieldset-legend">Email ID</legend>
-            <input
-              type="text"
-              className="input"
-              value={emailId}
-              onChange={(e) => setEmailId(e.target.value)}
-              placeholder="Enter Email..."
-            />
-          </fieldset>
-          <fieldset className="fieldset">
-            <legend className="fieldset-legend">Password</legend>
-            <input
-              type="password"
-              className="input"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter Password..."
-            />
-          </fieldset>
-
+          <div>
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Email ID</legend>
+              <input
+                type="text"
+                className="input"
+                value={emailId}
+                onChange={(e) => setEmailId(e.target.value)}
+                placeholder="Enter Email..."
+              />
+            </fieldset>
+            <fieldset className="fieldset">
+              <legend className="fieldset-legend">Password</legend>
+              <input
+                type="password"
+                className="input"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="Enter Password..."
+              />
+            </fieldset>
+            <p className="text-red-500">{error}</p>
+          </div>
           <div className="card-actions justify-center">
             <button className="btn btn-primary" onClick={handleLogin}>
               login
