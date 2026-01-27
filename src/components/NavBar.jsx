@@ -15,12 +15,14 @@ const NavBar = () => {
       await axios.post(`${BASE_URL}/logout`, {}, { withCredentials: true });
       dispatch(removeUser());
       return navigate("/login");
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <div className="navbar bg-base-300 shadow-sm">
       <div className="flex-1">
-        <Link className="btn btn-ghost text-xl" to="/">
+        <Link className="btn btn-ghost text-xl" to="/feed">
           👨🏻‍💻 DevTinder
         </Link>
       </div>
@@ -48,7 +50,7 @@ const NavBar = () => {
                 </Link>
               </li>
               <li>
-                <a>Settings</a>
+                <Link to="/connections">Connections</Link>
               </li>
               <li>
                 <button onClick={handleLogout}>Logout</button>
