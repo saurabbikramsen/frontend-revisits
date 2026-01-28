@@ -1,7 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { BASE_URL } from "../utils/constants";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addConnections } from "../utils/connectionSlice";
 
 const Connections = () => {
@@ -12,7 +12,6 @@ const Connections = () => {
       const res = await axios.get(`${BASE_URL}/user/connections`, {
         withCredentials: true,
       });
-      console.log("res: ", res.data.data);
       dispatch(addConnections(res.data.data));
     } catch (err) {
       console.log(err);
@@ -35,7 +34,10 @@ const Connections = () => {
             const { firstName, lastName, photoUrl, age, gender, about } =
               connection;
             return (
-              <div className="flex gap-2 p-4 border border-gray-400 bg-gray-200 rounded-md w-full">
+              <div
+                key={connection._id}
+                className="flex gap-2 p-4 border border-gray-400 bg-gray-200 rounded-md w-full"
+              >
                 <img
                   alt="photo"
                   src={photoUrl}

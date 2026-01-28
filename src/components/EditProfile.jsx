@@ -8,10 +8,10 @@ import { addUser } from "../utils/userSlice";
 const EditProfile = ({ user }) => {
   const [firstName, setFirstName] = React.useState(user.firstName);
   const [lastName, setLastName] = React.useState(user.lastName);
-  const [age, setAge] = React.useState(user.age);
-  const [gender, setGender] = React.useState(user.gender);
-  const [about, setAbout] = React.useState(user.about);
-  const [photoUrl, setPhotoUrl] = React.useState(user.photoUrl);
+  const [age, setAge] = React.useState(user.age || "");
+  const [gender, setGender] = React.useState(user.gender || "");
+  const [about, setAbout] = React.useState(user.about || "");
+  const [photoUrl, setPhotoUrl] = React.useState(user.photoUrl || "");
   const [error, setError] = React.useState("");
   const [showToast, setShowToast] = React.useState(false);
   const dispatch = useDispatch();
@@ -31,7 +31,6 @@ const EditProfile = ({ user }) => {
         },
         { withCredentials: true },
       );
-      console.log(response);
       dispatch(addUser(response.data.data));
       setShowToast(true);
       setTimeout(() => {
